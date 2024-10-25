@@ -78,7 +78,7 @@ html.lenis body {
   --row-gap: max(1.75em, 1.75vw);
   --col-gap: max(1.75em, 1.75vw);
 
-  --title-size: max(5em, 7.5vw);
+  --title-size: max(2em, 7.5vw);
   --border-radius: 0.35em;
   --main-navigation-height: 4.6em;
   --single-grid-col: calc((99.99vw - (var(--col-gap) * 2)) / 4);
@@ -437,7 +437,10 @@ video.overlay {
 }
 
 /* ------------------------- Custom Styles -------------------------------------------------- */
-
+.title {
+  font-size: 3em;
+  margin-bottom: 30px;
+}
 header {
   position: fixed;
   top: 0;
