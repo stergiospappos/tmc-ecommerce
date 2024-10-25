@@ -6,10 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>INFINITE®️</title>
     <link rel="stylesheet" href="./css/styleguide.css" />
-
+    <link rel="stylesheet" href="./css/minicart.css" />
     <link rel="stylesheet" href="./css/normalize.css" />
   </head>
-  <body>
+  <body class="lenis">
     <header>
       <nav class="navigation row">
         <div class="col-row">
@@ -107,7 +107,7 @@
             </li>
             <li>
               <div class="nav-link">
-                <a href="#" class="btn nav-link-click">
+                <a href="#" class="btn cart-button nav-link-click">
                   <div class="nav-link-content">
                     <span class="cart">
                       <svg
@@ -129,6 +129,7 @@
                         />
                       </svg>
                       Cart
+                      <div id="quantity" class="quantity_cart">0</div>
                     </span>
                   </div>
                 </a>
@@ -136,6 +137,68 @@
             </li>
           </ul>
         </div>
+        <!-- Cart Starts  -->
+
+        <div class="cart-wrapper hide rightSidebar">
+          <div
+            data-lenis-prevent
+            data-leni-prevent="wheel"
+            class="cart-container"
+          >
+            <div class="cart-header">
+              <div class="cart-heading">
+                <h4 class="cart_header">Cart</h4>
+                <div class="quantity_box">
+                  <div id="quantity" class="quantity_cart">0</div>
+                </div>
+              </div>
+              <a class="close-button" role="button" aria-label="Close cart"
+                ><svg width="16px" height="16px" viewBox="0 0 16 16">
+                  <g
+                    stroke="none"
+                    stroke-width="1"
+                    fill="none"
+                    fill-rule="evenodd"
+                  >
+                    <g fill-rule="nonzero" fill="#333333">
+                      <polygon
+                        points="6.23223305 8 0.616116524 13.6161165 2.38388348 15.3838835 8 9.76776695 13.6161165 15.3838835 15.3838835 13.6161165 9.76776695 8 15.3838835 2.38388348 13.6161165 0.616116524 8 6.23223305 2.38388348 0.616116524 0.616116524 2.38388348 6.23223305 8"
+                      ></polygon>
+                    </g>
+                  </g>
+                </svg>
+              </a>
+            </div>
+            <div class="cart-form-wrapper">
+              <form class="cart_inside">
+                <div class="products_list">
+                  <div class="cart-list"></div>
+                </div>
+                <div class="cart-footer">
+                  <div class="cart-line-item shipping">
+                    <div>Shipping</div>
+                    <div>100€</div>
+                  </div>
+                  <div class="cart-line-item taxes">
+                    <div>Taxes</div>
+                    <div>24%</div>
+                  </div>
+                  <div class="cart-line-item subtotal">
+                    <div>Subtotal</div>
+                    <div class="subtotal-price">1.364€</div>
+                  </div>
+                  <a
+                    href="#"
+                    value="Checkout"
+                    class="w-commerce-commercecartcheckoutbutton checkout-button"
+                    >Checkout</a
+                  >
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <!-- Cart Ends  -->
       </nav>
     </header>
 
@@ -193,6 +256,7 @@
       </div>
     </main>
     <script type="module" src="./js/script.js"></script>
+    <script src="./js/cart.js"></script>
     <script src="https://unpkg.com/lenis@1.1.14/dist/lenis.min.js"></script>
     <script src="./js/lenis.js"></script>
   </body>

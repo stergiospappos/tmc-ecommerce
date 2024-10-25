@@ -1,5 +1,5 @@
 import products from "./products.js";
-import displayProducts from "./display-products.js";
+
 const productContainer = document.querySelector(".products-container");
 
 //Create all the brand filters based on the products in the array
@@ -18,9 +18,37 @@ function displayFilters(products) {
     .join("");
 }
 
+function displayProducts(products) {
+  productContainer.innerHTML = products
+    .map((product) => {
+      let { brand, name, price, image, id } = product;
+      return `
+        <!-- Single Product Card -->
+              <div class="product-card">
+                <div class="product-info">
+                  <div class="product-brand">${brand}</div>
+                  <div class="product-name">${name}</div>
+                  <div class="product-price">${price}</div>
+                  <a
+                  href="#" class="add-to-cart btn" data-id="${id}">Add To Cart</a>
+                </div>
+                <div class="background-image">
+                  <img
+                    decoding="async"
+                    src="${image}"
+                    alt="A photo of ${name} from the brand ${brand}"
+                  />
+                </div>
+              </div>
+              <!-- End Single Product Card -->
+        `;
+    })
+    .join("");
+}
+
 // Initial display of all products
-displayProducts(products);
 displayFilters(products);
+displayProducts(products);
 
 // Add event listeners to filter buttons
 const filterButtons = document.querySelectorAll(".single-filter");
@@ -38,6 +66,59 @@ filterButtons.forEach((button) => {
     filterProducts(brand); // Call filter function when clicked
   });
 });
+
+// Add event listeners for "Add To Cart" buttons
+const addToCartButtons = document.querySelectorAll(".add-to-cart");
+addToCartButtons.forEach((button) => {
+  button.addEventListener("click", (event) => {
+    event.preventDefault();
+    const productId = event.target.getAttribute("data-id");
+    addToCart(productId);
+    cartWrapper.classList.remove("hide");
+
+    //Calculate subtotal
+    const subtotal = document.querySelector(".subtotal-price");
+
+    // Calculate subtotal using reduce to sum up prices
+    let cartTotal = cartItems.reduce((total, item) => {
+      // Convert price to a number, removing "€" and "."
+      return total + parseFloat(item.price.replace("€", "").replace(".", ""));
+    }, 0); // Start the total at 0
+
+    // Calculate VAT (24%)
+    let totalWithVAT = cartTotal * 1.24;
+
+    // Display the subtotal with VAT in the desired format with "€" symbol
+    subtotal.innerHTML = totalWithVAT.toLocaleString("en-US") + "€";
+
+    //Update Cart Item Number
+
+    const cartItemNum = document.querySelectorAll(".quantity_cart");
+
+    // Update each element with the cart item count
+    cartItemNum.forEach((element) => {
+      element.innerHTML = cartItems.length;
+    });
+  });
+});
+
+// Function to add a product to the cart with a random ID
+// Function to add a product to the cart with a random ID
+function addToCart(productId) {
+  const product = products.find((item) => item.id === productId);
+  if (product) {
+    const productCopy = { ...product };
+    productCopy.id = generateRandomId(); // Assign a random ID
+    cartItems.push(productCopy);
+    displayCartItems(cartItems); // Display updated cart
+  }
+}
+
+// Function to generate a random ID
+function generateRandomId() {
+  // Create a random number and convert it to a string
+  return Math.random().toString(36).substr(2, 9);
+}
 
 // Function to filter products by brand and display them
 function filterProducts(filter) {
@@ -76,3 +157,18 @@ searchBox.addEventListener("input", () => {
     productContainer.innerHTML = "<p>No products found</p>"; // Show this if no matches
   }
 });
+
+//Cart Open Close
+const button = document.querySelector(".test");
+const cartWrapper = document.querySelector(".cart-wrapper");
+const closeBtn = document.querySelector(".close-button");
+
+if (button && cartWrapper && closeBtn) {
+  button.addEventListener("click", () => {
+    cartWrapper.classList.remove("hide");
+  });
+
+  closeBtn.addEventListener("click", () => {
+    cartWrapper.classList.add("hide");
+  });
+}

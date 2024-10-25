@@ -3,6 +3,7 @@
 let products = [
   {
     type: "product",
+    id: "0001",
     brand: "Audemars Piguet",
     name: "Royal OAK",
     price: "14.050€",
@@ -10,6 +11,7 @@ let products = [
   },
   {
     type: "product",
+    id: "0002",
     brand: "Hublot",
     name: "Classic Fusion",
     price: "13.000€",
@@ -17,6 +19,7 @@ let products = [
   },
   {
     type: "product",
+    id: "0003",
     brand: "Rolex",
     name: "Date Just",
     price: "9.550€",
@@ -24,6 +27,7 @@ let products = [
   },
   {
     type: "product",
+    id: "0004",
     brand: "Omega",
     name: "Seamaster",
     price: "7.300€",
@@ -31,6 +35,7 @@ let products = [
   },
   {
     type: "product",
+    id: "0005",
     brand: "Tag Heuer",
     name: "Carrera",
     price: "5.850€",
@@ -38,6 +43,7 @@ let products = [
   },
   {
     type: "product",
+    id: "0006",
     brand: "Patek Philippe",
     name: "Nautilus",
     price: "30.500€",
@@ -45,6 +51,7 @@ let products = [
   },
   {
     type: "product",
+    id: "0007",
     brand: "Rolex",
     name: "Navitimer",
     price: "8.450€",
@@ -52,6 +59,7 @@ let products = [
   },
   {
     type: "product",
+    id: "0008",
     brand: "Cartier",
     name: "Santos",
     price: "12.800€",
@@ -59,6 +67,7 @@ let products = [
   },
   {
     type: "product",
+    id: "0009",
     brand: "IWC",
     name: "Portugieser",
     price: "10.600€",
@@ -66,6 +75,7 @@ let products = [
   },
   {
     type: "product",
+    id: "0010",
     brand: "Richard Mille",
     name: "RM 011",
     price: "150.000€",
