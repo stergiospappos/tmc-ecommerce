@@ -2,6 +2,16 @@
 
 A demo project showcasing a luxurious hero and product archive page for a watch distributor e-commerce site. This project focuses on creating a seamless shopping experience with dynamic functionality and stylish design elements.
 
+## Table of Contents
+
+1. [Features](#features)
+2. [Technical Details](#technical-details)
+3. [Setup & Installation](#setup--installation)
+4. [Technologies Used](#technologies-used)
+5. [Known Issues](#known-issues)
+6. [Contributing](#contributing)
+7. [License](#license)
+
 ## Features
 
 ### Product Listing and Filtering
@@ -28,7 +38,7 @@ A demo project showcasing a luxurious hero and product archive page for a watch 
 
 ### Dependencies
 
-- **Lenis Smooth Scrolling**: Used to create smooth scrolling for enhanced UX.
+- **Lenis Smooth Scrolling**: Creates smooth scrolling for enhanced UX.
 - **normalize.css**: Ensures uniform rendering across different browsers.
 
 ### Styling
@@ -36,10 +46,38 @@ A demo project showcasing a luxurious hero and product archive page for a watch 
 - **Custom Fonts and Variables**: Includes custom local fonts and variables for streamlined styling adjustments.
 - **Responsiveness**: CSS media queries are used to ensure the layout adapts smoothly across all device types and resolutions.
 
+## Setup & Installation
+
+1. **Clone the repository**:
+   ```bash
+   git clone https://github.com/stergiospappos/tmc-ecommerce.git
+   cd tmc-ecommerce
+   ```
+2. **Open `index.html`** in your browser to view the project locally.
+3. Ensure you have the necessary dependencies in place (normalize.css, Lenis smooth scrolling library).
+
+## Technologies Used
+
+- **HTML5**
+- **CSS3**
+- **JavaScript (ES6+)**
+- **normalize.css** for consistent styling across browsers
+- **Lenis** for smooth scrolling effects
+
 ## Known Issues
 
 1. **Add to Cart After Filtering**: Currently, adding a product to the cart does not work correctly if filters are applied.
 2. **Subtotal Calculation**: The cart subtotal does not update when increasing the quantity of items already in the cart.
 3. **Duplicate Products in Cart**: Adding the same item multiple times creates separate entries instead of increasing the quantity.
 
----
+## Contributing
+
+1. Fork the repository.
+2. Create a feature branch (`git checkout -b feature/AmazingFeature`).
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`).
+4. Push to the branch (`git push origin feature/AmazingFeature`).
+5. Open a pull request to discuss and merge your changes.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
