@@ -2,6 +2,7 @@ const button = document.querySelector(".cart-button");
 const cartWrapper = document.querySelector(".cart-wrapper");
 const closeBtn = document.querySelector(".close-button");
 
+// Open/close cart functionality
 if (button && cartWrapper && closeBtn) {
   button.addEventListener("click", () => {
     cartWrapper.classList.remove("hide");
@@ -12,114 +13,124 @@ if (button && cartWrapper && closeBtn) {
   });
 }
 
-//Cart Functionality
+// Cart Items Array
+let cartItems = [];
 
-//Cart Items Array
-cartItems = [];
-
-//Display CartItem in the Cart
+// Display Cart Items in the Cart
 const cartContainer = document.querySelector(".cart-list");
 
 function displayCartItems(cartItems) {
   cartContainer.innerHTML = cartItems
     .map((product) => {
-      let { brand, name, price, image, id } = product;
+      let { brand, name, price, image, id, quantity } = product;
       return `
-        <!-- Single Cart Item -->
-                <div class="cart-item">
-                  <div class="cart_image_box">
-                    <img src="${image}" alt="" class="image" />
-                  </div>
-                  <div class="product_cart_info">
-                    <div class="cart_name">${name}</div>
-                    <ul class="brand_options">
-                      <li class="options-cart">
-                        <span class="brand-cart">Brand</span>
-                        <span class="brand-dot">:</span>
-                        <span class="brand-cart-name">${brand}</span>
-                      </li>
-                    </ul>
-                    <div class="q-group">
-                      <a href="#" class="q-dec w-inline-block"
-                        ><img
-                          src="./assets/minus.svg"
-                          loading="lazy"
-                          alt=""
-                          class="increment-icon" /></a
-                      ><input
-                        aria-label="Update quantity"
-                        class="q-num"
-                        required=""
-                        pattern="^[0-9]+$"
-                        inputmode="numeric"
-                        type="number"
-                        name="quantity"
-                        autocomplete="off"
-                        value="1"
-                      /><a href="#" class="q-inc w-inline-block"
-                        ><img
-                          src="./assets/plus-1.svg"
-                          loading="lazy"
-                          alt=""
-                          class="increment-icon"
-                      /></a>
-                    </div>
-                  </div>
-                  <div class="price_remove">
-                    <div class="price_cart">${price}</div>
-                    <a data-id="${id}" class="remove">Remove </a>
-                  </div>
-                </div>
-                <!-- End Single Cart Item -->
-        `;
+        <div class="cart-item" data-id="${id}">
+          <div class="cart_image_box">
+            <img src="${image}" alt="" class="image" />
+          </div>
+          <div class="product_cart_info">
+            <div class="cart_name">${name}</div>
+            <ul class="brand_options">
+              <li class="options-cart">
+                <span class="brand-cart">Brand</span>
+                <span class="brand-dot">:</span>
+                <span class="brand-cart-name">${brand}</span>
+              </li>
+            </ul>
+            <div class="q-group">
+              <a href="#" class="q-dec w-inline-block">
+                <img src="./assets/minus.svg" loading="lazy" alt="" class="increment-icon" />
+              </a>
+              <input
+                class="q-num"
+                type="number"
+                value="${quantity}"
+                min="1"
+              />
+              <a href="#" class="q-inc w-inline-block">
+                <img src="./assets/plus-1.svg" loading="lazy" alt="" class="increment-icon" />
+              </a>
+            </div>
+          </div>
+          <div class="price_remove">
+            <div class="price_cart">${price}</div>
+            <a href="#" class="remove" data-id="${id}">Remove</a>
+          </div>
+        </div>
+      `;
     })
     .join("");
-  // Attach event listeners to "Remove" buttons after displaying items
-  const removeFromCartButtons = document.querySelectorAll(".remove");
-  removeFromCartButtons.forEach((button) => {
+
+  attachCartEventListeners();
+  updateCartItemCount();
+}
+
+// Attach event listeners for cart actions
+function attachCartEventListeners() {
+  // Remove item
+  document.querySelectorAll(".remove").forEach((button) => {
     button.addEventListener("click", (event) => {
       event.preventDefault();
-      const productId = button.getAttribute("data-id"); // Get product ID from data-id attribute
-      removeItem(productId); // Call remove function
+      const productId = button.getAttribute("data-id");
+      removeItem(productId);
     });
   });
 
-  // Attach event listeners for quantity increment and decrement
+  // Update quantities
   document.querySelectorAll(".q-group").forEach((group) => {
     const decrementBtn = group.querySelector(".q-dec");
     const incrementBtn = group.querySelector(".q-inc");
     const quantityInput = group.querySelector(".q-num");
+    const productId = group.closest(".cart-item").dataset.id;
 
-    // Event listener for decrement button
     decrementBtn.addEventListener("click", (event) => {
       event.preventDefault();
-      let currentValue = parseInt(quantityInput.value) || 1;
+      let currentValue = parseInt(quantityInput.value);
       if (currentValue > 1) {
-        // Prevent going below 1
-        quantityInput.value = currentValue - 1;
+        updateQuantity(productId, currentValue - 1);
       }
     });
 
-    // Event listener for increment button
     incrementBtn.addEventListener("click", (event) => {
       event.preventDefault();
-      let currentValue = parseInt(quantityInput.value) || 1;
-      quantityInput.value = currentValue + 1;
+      let currentValue = parseInt(quantityInput.value);
+      updateQuantity(productId, currentValue + 1);
     });
-  });
 
-  // Update each element with the cart item count
-  const cartItemNum = document.querySelectorAll(".quantity_cart");
-  cartItemNum.forEach((element) => {
-    element.innerHTML = cartItems.length;
+    quantityInput.addEventListener("change", (event) => {
+      let newValue = parseInt(event.target.value);
+      if (newValue > 0) {
+        updateQuantity(productId, newValue);
+      } else {
+        event.target.value = 1;
+        updateQuantity(productId, 1);
+      }
+    });
   });
 }
 
-// Function to remove a product from the cart
-function removeItem(productId) {
-  const index = cartItems.findIndex((item) => item.id === productId);
-  if (index !== -1) {
-    cartItems.splice(index, 1); // Remove item from cartItems
-    displayCartItems(cartItems); // Refresh the cart display
+// Update quantity in cart
+function updateQuantity(productId, quantity) {
+  const product = cartItems.find((item) => item.id === productId);
+  if (product) {
+    product.quantity = quantity;
+    displayCartItems(cartItems);
   }
+}
+
+// Remove a product from the cart
+function removeItem(productId) {
+  cartItems = cartItems.filter((item) => item.id !== productId);
+  displayCartItems(cartItems);
+}
+
+// Update cart item count
+function updateCartItemCount() {
+  const cartItemNum = document.querySelectorAll(".quantity_cart");
+  cartItemNum.forEach((element) => {
+    element.innerHTML = cartItems.reduce(
+      (total, item) => total + item.quantity,
+      0
+    );
+  });
 }

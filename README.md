@@ -66,10 +66,6 @@ A demo project showcasing a luxurious hero and product archive page for a watch 
 
 ## Known Issues
 
-1. **Add to Cart After Filtering**: Currently, adding a product to the cart does not work correctly if filters are applied.
-2. **Subtotal Calculation**: The cart subtotal does not update when increasing the quantity of items already in the cart.
-3. **Duplicate Products in Cart**: Adding the same item multiple times creates separate entries instead of increasing the quantity.
-
 ## Contributing
 
 1. Fork the repository.
